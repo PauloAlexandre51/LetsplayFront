@@ -1,0 +1,29 @@
+<main class="form-signin w-100 m-auto">
+    <form (ngSubmit)="cadastrar()">
+      <h1 class="h3 mb-3 fw-normal">Cadastro de Usuário</h1>
+  
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="inputNome" placeholder="Nome" [(ngModel)]="nome" name="nome" required>
+        <label for="inputNome">Nome</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="inputSobrenome" placeholder="Sobrenome" [(ngModel)]="sobrenome" name="sobrenome" required>
+        <label for="inputSobrenome">Sobrenome</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" [(ngModel)]="email" name="email" required>
+        <label for="inputEmail">Email</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="inputSenha" placeholder="Password" [(ngModel)]="senha" name="senha" required>
+        <label for="inputSenha">Senha</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Password" [(ngModel)]="confirmarSenha" name="confirmarSenha" required>
+        <label for="inputConfirmarSenha">Confirmar Senha</label>
+      </div>
+      <button class="btn btn-primary w-100 py-2 mb-2" type="submit">Cadastrar</button>
+      <p class="mt-5 mb-3 text-body-secondary">&copy; FrontEnd FUMEC</p>
+    </form>
+  </main>
+  
