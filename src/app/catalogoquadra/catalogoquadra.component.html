@@ -1,0 +1,19 @@
+   <div class="col">
+    <div class="card shadow-sm">
+      <img src="../../assets/img/imgQuadra.JPG" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="imagem ilustrativa">
+      <div class="card-body">
+        <p class="card-text">
+          {{quadra.nome}}
+          <!-- <br>
+          {{quadra.telefone}} -->
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="goToDetails()">Detalhes</button>
+          </div>
+          <small class="text-body-secondary">Valor Hora: R$ {{quadra.valorHora}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  
