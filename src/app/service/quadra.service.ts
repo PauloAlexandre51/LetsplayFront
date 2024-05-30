@@ -15,8 +15,8 @@ export class QuadraService {
     telefone: '99999',
     valorHora: 150,
     endereco: 'rua da quadra 0',
-    bairro: 'bairro da quadra 0',
-    cidade: 'cidade quadra 0'
+    bairro: 'Serra Verdade',
+    cidade: 'Belo Horizonte'
   },
   {
     id: 1,
@@ -25,7 +25,7 @@ export class QuadraService {
     valorHora: 150,
     endereco: 'rua da quadra 0',
     bairro: 'bairro da quadra 0',
-    cidade: 'cidade quadra 0'
+    cidade: 'BH'
   },
   {
     id: 2,
@@ -80,6 +80,29 @@ export class QuadraService {
 
   getQuadraById(id: number): Quadra | undefined {
     return this.quadraList.find(Quadra => Quadra.id === id);
+  }
+
+  addQuadra(quadra: Quadra): void {
+    quadra.id = this.quadraList.length > 0 ? Math.max(...this.quadraList.map(q => q.id)) + 1 : 1;
+    this.quadraList.push(quadra);
+  }
+
+  updateQuadra(updatedQuadra: Quadra): boolean {
+    const index = this.quadraList.findIndex(quadra => quadra.id === updatedQuadra.id);
+    if (index !== -1) {
+      this.quadraList[index] = updatedQuadra;
+      return true;
+    }
+    return false;
+  }
+
+  deleteQuadra(id: number): boolean {
+    const index = this.quadraList.findIndex(quadra => quadra.id === id);
+    if (index !== -1) {
+      this.quadraList.splice(index, 1);
+      return true;
+    }
+    return false;
   }
 
 }
