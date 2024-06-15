@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common'
+import { AsyncPipe, CommonModule } from '@angular/common'
 import { CatalogoquadraComponent } from '../catalogoquadra/catalogoquadra.component';
 import { Quadra } from '../interfaces/quadra';
 import { QuadraService } from '../service/quadra.service';
@@ -9,16 +9,17 @@ import { DetalheQuadraComponent } from '../detalhe-quadra/detalhe-quadra.compone
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CatalogoquadraComponent, RouterModule, DetalheQuadraComponent],
+  imports: [CommonModule, CatalogoquadraComponent, RouterModule, DetalheQuadraComponent, AsyncPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
-  quadraList: Quadra[] = [];
-  quadraService: QuadraService = inject(QuadraService);
+  private _quadrasService = inject(QuadraService);
 
-  constructor() {
-    this.quadraList = this.quadraService.getAllQuadras();
-  }
+  private _router = inject(RouterModule);
+
+  quadras$ = this._quadrasService.getAllQuadras();
+
+  constructor() {}
 }

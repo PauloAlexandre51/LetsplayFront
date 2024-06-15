@@ -15,19 +15,19 @@
   </div>
 
 <main class="form-signin w-100 m-auto">
-    <form (ngSubmit)="cadastrar()">
+    <form [formGroup]="form" (ngSubmit)="cadastrarQuadra()">
       <h1 class="h3 mb-3 fw-normal">Cadastro de Quadra</h1>
   
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="inputNome" placeholder="Nome" [(ngModel)]="quadra.nome" name="nome" required>
+            <input type="text" class="form-control" id="inputNome" placeholder="Nome" name="nome" formControlName="nome">
             <label for="inputNome">Nome</label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="inputTelefone" placeholder="Telefone" [(ngModel)]="quadra.telefone" name="telefone" required>
+            <input type="text" class="form-control" id="inputTelefone" placeholder="Telefone" name="telefone" formControlName="telefone">
             <label for="inputTelefone">Telefone</label>
           </div>
         </div>
@@ -36,13 +36,13 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="inputValorHora" placeholder="Valor Hora" [(ngModel)]="quadra.valorHora" name="valorHora" required>
+            <input type="text" class="form-control" id="inputValorHora" placeholder="Valor Hora" name="valorHora" formControlName="valorHora">
             <label for="inputValorHora">Valor Hora</label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="inputEndereco" placeholder="Endereço" [(ngModel)]="quadra.endereco" name="endereco" required>
+            <input type="text" class="form-control" id="inputEndereco" placeholder="Endereço" name="endereco" formControlName="endereco">
             <label for="inputEndereco">Endereço</label>
           </div>
         </div>
@@ -51,13 +51,13 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="inputBairro" placeholder="Bairro" [(ngModel)]="quadra.bairro" name="bairro" required>
+            <input type="text" class="form-control" id="inputBairro" placeholder="Bairro" formControlName="bairro">
             <label for="inputBairro">Bairro</label>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="inputCidade" placeholder="Cidade" [(ngModel)]="quadra.cidade" name="cidade" required>
+            <input type="text" class="form-control" id="inputCidade" placeholder="Cidade" formControlName="cidade">
             <label for="inputCidade">Cidade</label>
           </div>
         </div>

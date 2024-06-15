@@ -15,7 +15,8 @@ export class CatalogoquadraComponent {
 
   constructor(private router: Router) { }
 
-  goToDetails(): void {
+  goToDetails(quadra: Quadra){
+    console.log(quadra)
     this.router.navigate(['/detalhe', this.quadra.id]);
   }
 }

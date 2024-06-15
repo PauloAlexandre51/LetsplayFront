@@ -1,5 +1,8 @@
-export interface Quadra {
-    id: number;
+export interface Quadra extends QuadraForm {
+    id: string;
+  }
+
+export interface QuadraForm {
     nome: string;
     telefone: string;
     valorHora: number;

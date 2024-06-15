@@ -22,7 +22,7 @@ export class DetalheQuadraComponent {
   quadra: Quadra | undefined;
 
     constructor() {
-        const quadraId = Number(this.route.snapshot.params['id']);
-        this.quadra = this.quadraService.getQuadraById(quadraId);
+        // const quadraId = Number(this.route.snapshot.params['id']);
+        // this.quadra = this.quadraService.getQuadraById(quadraId);
     }
 }

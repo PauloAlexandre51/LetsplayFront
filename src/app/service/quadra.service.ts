@@ -1,108 +1,60 @@
-import { Injectable } from '@angular/core';
-import { Quadra } from '../interfaces/quadra';
+import { Injectable, inject } from '@angular/core';
+import { Quadra, QuadraForm } from '../interfaces/quadra';
+import {
+  Firestore,
+  addDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
+const PATH = 'quadras';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuadraService {
 
+  private _firestore = inject(Firestore);
+
+  private _collection = collection(this._firestore, PATH);
+
   constructor() { }
 
-  quadraList: Quadra[] = [
-    {
-    id: 0,
-    nome: 'quadra 0',
-    telefone: '99999',
-    valorHora: 150,
-    endereco: 'rua da quadra 0',
-    bairro: 'Serra Verdade',
-    cidade: 'Belo Horizonte'
-  },
-  {
-    id: 1,
-    nome: 'quadra 1',
-    telefone: '99999',
-    valorHora: 150,
-    endereco: 'rua da quadra 0',
-    bairro: 'bairro da quadra 0',
-    cidade: 'BH'
-  },
-  {
-    id: 2,
-    nome: 'quadra 2',
-    telefone: '99999',
-    valorHora: 150,
-    endereco: 'rua da quadra 0',
-    bairro: 'bairro da quadra 0',
-    cidade: 'cidade quadra 0'
-  },
-  {
-    id: 3,
-    nome: 'quadra 3',
-    telefone: '99999',
-    valorHora: 150,
-    endereco: 'rua da quadra 0',
-    bairro: 'bairro da quadra 0',
-    cidade: 'cidade quadra 0'
-  },
-  {
-    id: 4,
-    nome: 'quadra 4',
-    telefone: '99999',
-    valorHora: 150,
-    endereco: 'rua da quadra 0',
-    bairro: 'bairro da quadra 0',
-    cidade: 'cidade quadra 0'
-  },
-  {
-    id: 5,
-    nome: 'quadra 5',
-    telefone: '99999',
-    valorHora: 150,
-    endereco: 'rua da quadra 0',
-    bairro: 'bairro da quadra 0',
-    cidade: 'cidade quadra 0'
-  },
-  {
-    id: 6,
-    nome: 'quadra 6',
-    telefone: '99999',
-    valorHora: 150,
-    endereco: 'rua da quadra 0',
-    bairro: 'bairro da quadra 0',
-    cidade: 'cidade quadra 0'
-  }
-];
-
-  getAllQuadras(): Quadra[] {
-    return this.quadraList;
+  getAllQuadras() {
+    return collectionData(this._collection, {idField: 'id'}) as Observable<Quadra[]>;
   }
 
-  getQuadraById(id: number): Quadra | undefined {
-    return this.quadraList.find(Quadra => Quadra.id === id);
+  async getQuadraById(id: string) {
+    try {
+      const snapshot = await getDoc(this.document(id));
+      return snapshot.data() as Quadra;
+      } catch (error) {
+        return undefined;
+      }
   }
 
-  addQuadra(quadra: Quadra): void {
-    quadra.id = this.quadraList.length > 0 ? Math.max(...this.quadraList.map(q => q.id)) + 1 : 1;
-    this.quadraList.push(quadra);
+  addQuadra(quadra: QuadraForm){
+    return addDoc(this._collection, quadra)
   }
 
-  updateQuadra(updatedQuadra: Quadra): boolean {
-    const index = this.quadraList.findIndex(quadra => quadra.id === updatedQuadra.id);
-    if (index !== -1) {
-      this.quadraList[index] = updatedQuadra;
-      return true;
-    }
-    return false;
+  updateQuadra(id: string, quadra: QuadraForm) {
+    return updateDoc(this.document(id), { ...quadra });
   }
 
-  deleteQuadra(id: number): boolean {
-    const index = this.quadraList.findIndex(quadra => quadra.id === id);
-    if (index !== -1) {
-      this.quadraList.splice(index, 1);
-      return true;
-    }
-    return false;
+  deleteQuadra(id: string) {
+    return deleteDoc(this.document(id));
+  }
+
+  private document(id: string) {
+    return doc(this._firestore, `${PATH}/${id}`);
   }
 
 }

@@ -18,7 +18,8 @@
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <app-catalogoquadra *ngFor="let quadra of quadraList" [quadra]="quadra"></app-catalogoquadra>
+        @for (quadra of quadras$ | async; track quadra.id) 
+        { <app-catalogoquadra [quadra]="quadra"></app-catalogoquadra> }
       </div>
     </div>
   </div>

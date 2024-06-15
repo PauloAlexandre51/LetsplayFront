@@ -1,37 +1,68 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+  FormsModule
+} from '@angular/forms';
 import { QuadraService } from '../service/quadra.service';   
-import { Quadra } from '../interfaces/quadra';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
+import { QuadraForm } from '../interfaces/quadra';
+import { RouterLink, Router } from '@angular/router';
+
+export interface CreateForm {
+  nome: FormControl<string>;
+  telefone: FormControl<string>;
+  valorHora: FormControl<number>;
+  endereco: FormControl<string>;
+  bairro: FormControl<string>;
+  cidade: FormControl<string>;
+  //description?: FormControl<string | undefined>;
+}
 
 @Component({
   selector: 'app-cadastro-quadra',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterLink, ReactiveFormsModule],
   templateUrl: './cadastro-quadra.component.html',
   styleUrl: './cadastro-quadra.component.css'
 })
 export class CadastroQuadraComponent {
-    quadra: Quadra = {
-    id: 0,
-    nome: '',
-    telefone: '',
-    valorHora: 0,
-    endereco: '',
-    bairro: '',
-    cidade: ''
-  };
-  constructor(private quadraService: QuadraService, private router: Router) { }
+   
+  private _formBuilder = inject(FormBuilder).nonNullable;
 
-  cadastrar(): void {
-    this.quadraService.addQuadra(this.quadra);
-    alert('Quadra cadastrada com sucesso!');
-    this.router.navigate(['/home']);
+  private _router = inject(Router);
+
+  private _quadrasService = inject(QuadraService);
+
+  form = this._formBuilder.group<CreateForm>({
+    nome: this._formBuilder.control('', Validators.required),
+    telefone: this._formBuilder.control('', Validators.required),
+    valorHora: this._formBuilder.control(0, Validators.required),
+    endereco: this._formBuilder.control('', Validators.required),
+    bairro: this._formBuilder.control('', Validators.required),
+    cidade: this._formBuilder.control('', Validators.required),
+  });
+
+  async cadastrarQuadra() {
+    if (this.form.invalid) {
+      alert('preencha todos os campos')
+      return;
+    } 
+    try {
+      const quadra = this.form.value as QuadraForm;
+      await this._quadrasService.addQuadra(quadra);
+      this._router.navigate(['/home']);
+      alert('Quadra cadastrada com sucesso!');
+      this._router.navigate(['/home']);
+    } catch (error) {
+      // call some toast service to handle the error
+    }
+    
   }
 
   cancelar(): void {
-    this.router.navigate(['/home']);
+    this._router.navigate(['/home']);
   }
 
 }
