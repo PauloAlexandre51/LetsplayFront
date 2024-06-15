@@ -1,29 +1,36 @@
+<div class="container">
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <a [routerLink]="['/home']" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <span class="fs-4">Letsplay</span>
+    </a>
+  </header>
+</div>
+
 <main class="form-signin w-100 m-auto">
-    <form (ngSubmit)="cadastrar()">
-      <h1 class="h3 mb-3 fw-normal">Cadastro de Usuário</h1>
-  
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="inputNome" placeholder="Nome" [(ngModel)]="nome" name="nome" required>
-        <label for="inputNome">Nome</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="inputSobrenome" placeholder="Sobrenome" [(ngModel)]="sobrenome" name="sobrenome" required>
-        <label for="inputSobrenome">Sobrenome</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" [(ngModel)]="email" name="email" required>
-        <label for="inputEmail">Email</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="inputSenha" placeholder="Password" [(ngModel)]="senha" name="senha" required>
-        <label for="inputSenha">Senha</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Password" [(ngModel)]="confirmarSenha" name="confirmarSenha" required>
-        <label for="inputConfirmarSenha">Confirmar Senha</label>
-      </div>
-      <button class="btn btn-primary w-100 py-2 mb-2" type="submit">Cadastrar</button>
-      <p class="mt-5 mb-3 text-body-secondary">&copy; FrontEnd FUMEC</p>
-    </form>
-  </main>
-  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" id="nome" formControlName="nome">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" formControlName="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input type="password" class="form-control" id="password" formControlName="password">
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirmar Senha</label>
+      <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+      <p *ngIf="form.hasError('senhasDiferentes')" class="text-danger">Senha e confirmar senha não estão iguais.</p>
+    </div>
+    <br>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+    </div>
+    <br>
+      <button class="btn btn-secondary w-100 py-2" type="button" [routerLink]="['/login']">Cancelar</button>
+  </form>
+  <p class="mt-5 mb-3 text-body-secondary">&copy; FrontEnd FUMEC</p>
+</main>

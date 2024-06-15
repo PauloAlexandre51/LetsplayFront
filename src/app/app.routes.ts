@@ -5,13 +5,14 @@ import { CadastrousuarioComponent } from './cadastrousuario/cadastrousuario.comp
 import { DetalheQuadraComponent } from './detalhe-quadra/detalhe-quadra.component';
 import { CadastroQuadraComponent } from './cadastro-quadra/cadastro-quadra.component';
 import { EditarQuadraComponent } from './editar-quadra/editar-quadra.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent, title: 'Home' },
     { path: 'cadastrousuario', component: CadastrousuarioComponent },
     { path: 'detalhe/:id', component: DetalheQuadraComponent, title: 'Detalhe' },
-    { path: 'cadastroquadra', component: CadastroQuadraComponent, title: 'Cadastro Quadra' },
+    { path: 'cadastroquadra', component: CadastroQuadraComponent, canActivate: [AuthGuard], title: 'Cadastro Quadra',  },
     { path: 'editarquadra/:id', component: EditarQuadraComponent, title: 'Editar Quadra' },
 ];

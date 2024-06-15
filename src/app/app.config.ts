@@ -3,10 +3,10 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { firebaseProviders } from './firebase.config';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), 
@@ -17,5 +17,7 @@ export const appConfig: ApplicationConfig = {
       storageBucket: "letsplayangular.appspot.com",
       messagingSenderId: "268740588598",
       appId: "1:268740588598:web:5574f045ae2cb834695497" })),
-      provideFirestore(() => getFirestore())]
+      provideFirestore(() => getFirestore()),
+      provideAuth(() => getAuth())
+    ]
 };
