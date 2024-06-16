@@ -79,4 +79,8 @@ export class AuthService {
   getCurrentUserEmail(): string {
     return localStorage.getItem('userEmail') || 'erro@emailerro.com';
   }  
+
+  isAdminUser(email: string): boolean {
+    return email === 'admin@admin.com';
+  }
 }

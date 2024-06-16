@@ -7,6 +7,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), 
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
       messagingSenderId: "268740588598",
       appId: "1:268740588598:web:5574f045ae2cb834695497" })),
       provideFirestore(() => getFirestore()),
-      provideAuth(() => getAuth())
+      provideAuth(() => getAuth()),
+      provideHttpClient()
     ]
 };

@@ -5,13 +5,18 @@
         <span class="fs-4">Letsplay</span>
       </a>
 
-      <!-- <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li>
+      <ul class="nav nav-pills">
+        <!-- <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-      </ul> -->
+        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li> -->
+        <ul class="nav nav-pills">
+          <li class="nav-item" *ngIf="isAdmin"><a [routerLink]="['/cadastroquadra']" class="nav-link">Adicionar Quadra</a></li>
+          <li class="nav-item" *ngIf="!isAdmin"><a [routerLink]="['/meusagendamentos']" class="nav-link">Agendamentos</a></li>
+          <li class="nav-item" *ngIf="isAdmin"><a [routerLink]="['/relatorio']" class="nav-link">Relatório</a></li>
+          <li class="nav-item"><a (click)="logout()" class="nav-link">Sair</a></li>
+        </ul>        
+      </ul>
     </header>
   </div>
 

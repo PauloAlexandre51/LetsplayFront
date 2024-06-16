@@ -9,7 +9,8 @@
         </p>
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="goToDetails(quadra)">Detalhes</button>
+            <button *ngIf="!isAdmin" type="button" class="btn btn-sm btn-outline-secondary" (click)="goToDetails(quadra)">Detalhes</button>
+            <button *ngIf="isAdmin" type="button" class="btn btn-sm btn-outline-warning ms-2" (click)="goToEdit(quadra)">Editar</button>
           </div>
           <small class="text-body-secondary">Valor Hora: R$ {{quadra.valorHora}}</small>
         </div>

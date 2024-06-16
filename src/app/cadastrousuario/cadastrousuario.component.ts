@@ -46,7 +46,7 @@ export class CadastrousuarioComponent {
         const success = await this.authService.signUp(email, password, nome);
         if (success) {
           alert('Usuário cadastrado com sucesso!');
-          this.router.navigate(['/home']);
+          this.router.navigate(['/login']);
         } else {
           alert('Erro ao cadastrar usuário. Tente novamente mais tarde.');
         }

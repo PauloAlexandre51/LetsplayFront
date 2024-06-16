@@ -57,4 +57,26 @@ export class QuadraService {
     return doc(this._firestore, `${PATH}/${id}`);
   }
 
+  async getNomeQuadraById(id: string): Promise<string | undefined> {
+    try {
+      const snapshot = await getDoc(this.document(id));
+      const quadra = snapshot.data() as Quadra | undefined;
+      return quadra?.nome;
+    } catch (error) {
+      console.error('Erro ao buscar nome da quadra por ID:', error);
+      return undefined;
+    }
+  }
+
+  async getValorHoraById(id: string): Promise<number | undefined> {
+    try {
+      const snapshot = await getDoc(this.document(id));
+      const quadra = snapshot.data() as Quadra | undefined;
+      return quadra?.valorHora;
+    } catch (error) {
+      console.error('Erro ao buscar valor da hora por ID:', error);
+      return undefined;
+    }
+  }
+
 }

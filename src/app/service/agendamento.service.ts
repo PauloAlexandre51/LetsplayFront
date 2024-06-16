@@ -5,7 +5,10 @@ import {
   collection,
   collectionData,
   doc,
-  getDoc
+  getDoc,
+  where,
+  query,
+  getDocs
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Agendamento } from '../interfaces/agendamento';
@@ -41,5 +44,20 @@ export class AgendamentoService {
 
   private document(id: string) {
     return doc(this._firestore, `${PATH}/${id}`);
+  }
+
+  async getAgendamentosByUsuario(email: string): Promise<Agendamento[]> {
+    try {
+      const q = query(collection(this._firestore, 'agendamentos'), where('idUsuario', '==', email));
+      const querySnapshot = await getDocs(q);
+      const agendamentos: Agendamento[] = [];
+      querySnapshot.forEach((doc) => {
+        agendamentos.push(doc.data() as Agendamento);
+      });
+      return agendamentos;
+    } catch (error) {
+      console.error('Erro ao buscar agendamentos por usuário:', error);
+      throw error;
+    }
   }
 }
