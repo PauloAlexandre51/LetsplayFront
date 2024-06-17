@@ -6,4 +6,8 @@
   .form-floating {
     margin-bottom: 1rem;
   }
+
+  .nav-item a {
+    cursor: pointer;
+  }
   

@@ -1,32 +1,47 @@
 <main>
   <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a [routerLink]="['/home']" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <a [routerLink]="['/home']" class="d-flex align-items-center mb-3 mb-md-auto me-md-auto link-body-emphasis text-decoration-none">
         <span class="fs-4">Letsplay</span>
       </a>
 
       <ul class="nav nav-pills">
-        <!-- <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li> -->
-        <ul class="nav nav-pills">
-          <li class="nav-item" *ngIf="isAdmin"><a [routerLink]="['/cadastroquadra']" class="nav-link">Adicionar Quadra</a></li>
-          <li class="nav-item" *ngIf="!isAdmin"><a [routerLink]="['/meusagendamentos']" class="nav-link">Agendamentos</a></li>
-          <li class="nav-item" *ngIf="isAdmin"><a [routerLink]="['/relatorio']" class="nav-link">Relatório</a></li>
-          <li class="nav-item"><a (click)="logout()" class="nav-link">Sair</a></li>
-        </ul>        
+        <li class="nav-item" *ngIf="isAdmin"><a [routerLink]="['/cadastroquadra']" class="nav-link">Adicionar Quadra</a></li>
+        <li class="nav-item" *ngIf="!isAdmin"><a [routerLink]="['/meusagendamentos']" class="nav-link">Agendamentos</a></li>
+        <li class="nav-item" *ngIf="isAdmin"><a [routerLink]="['/relatorio']" class="nav-link">Relatório</a></li>
+        <li class="nav-item"><a (click)="logout()" class="nav-link">Sair</a></li>
       </ul>
     </header>
+  </div>
+
+  <div class="container mb-4">
+    <form [formGroup]="filterForm" class="row g-3">
+      <div class="col-md-4">
+        <label for="nome" class="form-label">Nome da Quadra</label>
+        <input type="text" id="nome" class="form-control" formControlName="nome">
+      </div>
+      <div class="col-md-4">
+        <label for="cidade" class="form-label">Cidade</label>
+        <select id="cidade" class="form-select" formControlName="cidade">
+          <option value="">Todas as Cidades</option>
+          <option *ngFor="let cidade of cidades" [value]="cidade">{{ cidade }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="bairro" class="form-label">Bairro</label>
+        <select id="bairro" class="form-select" formControlName="bairro">
+          <option value="">Todos os Bairros</option>
+          <option *ngFor="let bairro of bairros" [value]="bairro">{{ bairro }}</option>
+        </select>
+      </div>
+    </form>
   </div>
 
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        @for (quadra of quadras$ | async; track quadra.id) 
-        { <app-catalogoquadra [quadra]="quadra"></app-catalogoquadra> }
+        <app-catalogoquadra *ngFor="let quadra of filteredQuadras" [quadra]="quadra"></app-catalogoquadra>
       </div>
     </div>
   </div>
-  
 </main>

@@ -6,6 +6,7 @@ import { QuadraService } from '../service/quadra.service';
 import { QuadraForm } from '../interfaces/quadra';
 import { RouterModule } from '@angular/router';
 import { CreateForm } from '../cadastro-quadra/cadastro-quadra.component';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   standalone: true,
@@ -39,7 +40,8 @@ export class EditarQuadraComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -95,5 +97,15 @@ export class EditarQuadraComponent implements OnInit {
 
   cancelar(): void {
     this.router.navigate(['/home']);
+  }
+
+  async logout(): Promise<void> {
+    try {
+      await this.authService.signOut();
+      localStorage.removeItem('userEmail');
+      this.router.navigate(['/login']);
+    } catch (err) {
+      console.error('Erro ao fazer logout:', err);
+    }
   }
 }

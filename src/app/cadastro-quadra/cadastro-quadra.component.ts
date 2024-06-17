@@ -10,6 +10,7 @@ import { QuadraService } from '../service/quadra.service';
 import { QuadraForm } from '../interfaces/quadra';
 import { RouterLink, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../service/auth.service';
 
 export interface CreateForm {
   nome: FormControl<string>;
@@ -36,6 +37,8 @@ export class CadastroQuadraComponent {
   private _quadrasService = inject(QuadraService);
 
   private http = inject(HttpClient);
+
+  private authService = inject(AuthService);
 
   cepControl = new FormControl<string | null>(null);
 
@@ -86,6 +89,16 @@ export class CadastroQuadraComponent {
 
   cancelar(): void {
     this._router.navigate(['/home']);
+  }
+
+  async logout(): Promise<void> {
+    try {
+      await this.authService.signOut();
+      localStorage.removeItem('userEmail');
+      this._router.navigate(['/login']);
+    } catch (err) {
+      console.error('Erro ao fazer logout:', err);
+    }
   }
 
 }
