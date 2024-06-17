@@ -12,11 +12,11 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'home', component: HomeComponent, title: 'Home' },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard], title: 'Home' },
     { path: 'cadastrousuario', component: CadastrousuarioComponent },
-    { path: 'detalhe/:id', component: DetalheQuadraComponent, title: 'Detalhe' },
+    { path: 'detalhe/:id', component: DetalheQuadraComponent, canActivate: [AuthGuard], title: 'Detalhe' },
     { path: 'cadastroquadra', component: CadastroQuadraComponent, canActivate: [AuthGuard], title: 'Cadastro Quadra',  },
-    { path: 'editarquadra/:id', component: EditarQuadraComponent, title: 'Editar Quadra' },
-    { path: 'meusagendamentos', component: MeusagendamentosComponent, title: 'Meus Agendamentos' },
-    { path: 'relatorio', component: RelatorioComponent, title: 'Relatório' }
+    { path: 'editarquadra/:id', component: EditarQuadraComponent, canActivate: [AuthGuard], title: 'Editar Quadra' },
+    { path: 'meusagendamentos', component: MeusagendamentosComponent, canActivate: [AuthGuard], title: 'Meus Agendamentos' },
+    { path: 'relatorio', component: RelatorioComponent, canActivate: [AuthGuard], title: 'Relatório' }
 ];
